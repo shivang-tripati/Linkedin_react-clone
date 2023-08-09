@@ -27,7 +27,7 @@ function Feed() {
     });
 
     return () => {
-      unsubscribe();
+      unsubscribe(); //Added an unsubscribe function to the useEffect for unsubscribing from the snapshot
     };
   }, []);
 
