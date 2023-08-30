@@ -3,9 +3,21 @@ import './Header.css'
 import { MdSearch, MdHome, MdGroup, MdChat, MdOutlineNotificationsNone} from "react-icons/md";
 import { FaBriefcase } from "react-icons/fa";
 import HeaderOption from './HeaderOption';
+import { useDispatch } from 'react-redux';
+import { logout } from '../features/userSlice';
+import { auth } from '../setup/firebase';
+import { signOut } from 'firebase/auth';
 
 
 function Header() {
+  
+  const dispatch = useDispatch();
+
+  const logoutOfApp = () => {
+    dispatch(logout())
+    // auth.signOut();
+    signOut(auth);
+  }
   return (
     <div className='header'>
 
@@ -24,7 +36,11 @@ function Header() {
             <HeaderOption Icon={FaBriefcase} title="Jobs"/>
             <HeaderOption Icon={MdChat} title="Messaging"/>
             <HeaderOption Icon={MdOutlineNotificationsNone} title="Notification"/>
-            <HeaderOption avatar="https://media.istockphoto.com/id/1399565382/photo/young-happy-mixed-race-businessman-standing-with-his-arms-crossed-working-alone-in-an-office.jpg?b=1&s=612x612&w=0&k=20&c=nMpH7tfH___WoQzbtoytLfYhwb3pgpDXXJyEHzwhgIM=" title='Me'/>
+            <HeaderOption avatar={true}
+            title='Me'
+            onClick={logoutOfApp}
+            
+            />
              
         </div>
     </div>

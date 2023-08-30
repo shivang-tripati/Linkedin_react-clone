@@ -5,10 +5,11 @@ import InputOption from './InputOption'
 import { ChatOutlined, SendOutlined, ShareOutlined, ThumbUpAltOutlined } from '@mui/icons-material'
 
 function Post({ name, description, message, photoUrl }) {
+
   return (
     <div className='post'>
         <div className='post_header'>
-          <Avatar/>
+          <Avatar src={photoUrl}>{name[0]}</Avatar>
           <div className='post_info'> 
               <h2>{name}</h2>
               <p>{description}</p>
@@ -21,7 +22,7 @@ function Post({ name, description, message, photoUrl }) {
         
 
         <div className='post_buttons'>
-            <InputOption Icon={ThumbUpAltOutlined} title="Like" color="gray"/>
+            <InputOption Icon={ThumbUpAltOutlined} title="Like" color="gray" />
             <InputOption Icon={ChatOutlined} title="Comment" color="gray"/>
             <InputOption Icon={ShareOutlined} title="Share" color="gray"/>
             <InputOption Icon={SendOutlined} title="Send" color="gray"/>

@@ -8,16 +8,21 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import CalendarViewDay from '@mui/icons-material/CalendarViewDay';
 import Post from './Post';
 import { db } from '../setup/firebase';
-import { collection, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, onSnapshot, addDoc, serverTimestamp, orderBy, query } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
 
 function Feed() {
+  const user = useSelector(selectUser);
   const [input, setInput] = useState('');
   const [posts, setPosts] = useState([]);
 
   const postsCollection = collection(db, 'posts');
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(postsCollection, (snapshot) => {
+    const unsubscribe = onSnapshot(
+      query(postsCollection, orderBy('timeStamp', 'desc')),
+         (snapshot) => {
       setPosts(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -29,17 +34,17 @@ function Feed() {
     return () => {
       unsubscribe(); //Added an unsubscribe function to the useEffect for unsubscribing from the snapshot
     };
-  }, []);
+  }, );
 
   const sendPost = async (e) => {
     e.preventDefault();
 
     try {
       await addDoc(postsCollection, {
-        name: 'shivang Tripathi',
-        description: 'just a test',
+        name: user.displayName,
+        description: user.email,
         message: input,
-        photoUrl: '',
+        photoUrl: user.photoUrl || "",
         timeStamp: serverTimestamp(),
       });
       console.log('Document added successfully');
