@@ -5,12 +5,12 @@ import Feed from './components/Feed';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { selectUser } from './features/userSlice';
 import Login from './components/Login';
+import Widgets from './components/Widgets';
 
 
 function App() {
 
   const user = useSelector(selectUser)
-
   return (
     <div className="app">
       <Header/>
@@ -22,6 +22,7 @@ function App() {
         <SideBar/>
         <Feed/>
         {/* Widgets */}
+        <Widgets/>
         </div>
         
       )}

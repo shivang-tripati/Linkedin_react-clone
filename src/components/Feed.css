@@ -1,5 +1,6 @@
 .feed {
-    flex: 0.6;
+    flex: 0.8vw;
+    /* width: auto; */
     margin: 0 18px;
 }
 
